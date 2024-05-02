@@ -161,7 +161,9 @@ const listarProductos = () => {
 <div class="card-body">
 
   <h5 class="card-title">
-  <a class="nav-link" href="./pages/producto.html?id=${item.id}">
+  <a class="nav-link" href="./pages/producto.html?id=${
+    item.id
+  }" target="_blank">
     ${item.title}
   </a>
   </h5>
