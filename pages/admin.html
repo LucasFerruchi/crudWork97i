@@ -71,7 +71,7 @@
       </div>
       <div class="row mb-5">
         <div class="col-12 col-md-8 offset-md-2 borde_form">
-          <form>
+          <form onsubmit="crearProducto(event)">
             <div class="row mb-2">
               <div class="col">
                 <label>Título</label>
@@ -159,9 +159,9 @@
               </tr>
             </thead>
             <tbody id="cuerpo-tabla">
-              <tr>
+              <!-- <tr>
                 <th></th>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
         </div>
@@ -191,7 +191,7 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form onsubmit="actualizarProducto(event)">
               <div class="row mb-2">
                 <div class="col">
                   <label>Título</label>

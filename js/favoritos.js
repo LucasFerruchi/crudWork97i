@@ -5,7 +5,7 @@ let contenedor = document.querySelector("#contenedor");
 let productos = JSON.parse(localStorage.getItem("productos")) || [];
 
 //3.Listar productos-------------------------------------
-const listarProductosFavoritos = () => {
+const listarProductos = () => {
   //Limpio el doc
   contenedor.innerHTML = "";
 
@@ -49,7 +49,7 @@ const listarProductosFavoritos = () => {
   }
 };
 
-listarProductosFavoritos();
+listarProductos();
 //3.--------------------------------------------------------
 
 //ESTRUCTURA DE LA CARD, REEMPLAZAR LA ESTRELLA POR LA "X"

@@ -39,7 +39,7 @@ myModal.hide();
 //Leer BD
 let productos = JSON.parse(localStorage.getItem("productos")) || [];
 
-//!FUNCION DE CARGAR TABLA
+// Funcion Cargar Tabla - C-READ-UD
 const cargarTabla = () => {
   cuerpoTabla.innerHTML = "";
   productos.forEach((producto) => {
@@ -52,7 +52,7 @@ const cargarTabla = () => {
     <td>
     <div class="d-flex gap-2">
     <i class="fa fa-pencil puntero" onclick="abrirModal(${producto.id})" aria-hidden="true"></i>
-    <i class="fa fa-trash puntero" onclick="" aria-hidden="true"></i>
+    <i class="fa fa-trash puntero" onclick="eliminarProducto(${producto.id})" aria-hidden="true"></i>
     </div>
     
     </td>
@@ -61,6 +61,43 @@ const cargarTabla = () => {
     tableRow.innerHTML = contenidoTabla;
     cuerpoTabla.append(tableRow);
   });
+};
+
+//Funcion para crear nuevo producto - CREATE-URD
+const crearProducto = (event) => {
+  event.preventDefault();
+
+  //Capturar los input
+  let id = productos.at(-1).id + 1;
+  let titulo = document.querySelector("#titulo").value;
+  let descripcion = document.querySelector("#descripcion").value;
+  let categoria = document.querySelector("#categoria").value;
+  let precio = document.querySelector("#precio").value;
+  let imagen = document.querySelector("#imagen").value;
+
+  //Crear un nuevo objeto (class) - INSTANCIA
+  let producto = new Producto(
+    id,
+    titulo,
+    descripcion,
+    categoria,
+    precio,
+    imagen
+  );
+
+  //Agregar el producto al arreglo
+  productos.push(producto);
+
+  localStorage.setItem("productos", JSON.stringify(productos));
+
+  //Limpiamos el formulario
+  document.querySelector("#titulo").value = "";
+  document.querySelector("#descripcion").value = "";
+  document.querySelector("#categoria").value = "";
+  document.querySelector("#precio").value = "";
+  document.querySelector("#imagen").value = "";
+
+  cargarTabla();
 };
 
 //Funcion abrirModal
@@ -83,6 +120,55 @@ const abrirModal = (id) => {
 
   //abrir el modal
   myModal.show();
+};
+
+//Guardar/Actualizar productos - CR-Update-D
+const actualizarProducto = (event) => {
+  event.preventDefault();
+
+  //Capturar datos nuevos
+  productos[indexProducto].title = document.querySelector("#tituloModal").value;
+  productos[indexProducto].description =
+    document.querySelector("#descripcionModal").value;
+  productos[indexProducto].category =
+    document.querySelector("#categoriaModal").value;
+  productos[indexProducto].price = document.querySelector("#precioModal").value;
+  productos[indexProducto].image = document.querySelector("#imagenModal").value;
+
+  //...alert
+
+  //Actualizar base de datos - localStorage
+  localStorage.setItem("productos", JSON.stringify(productos));
+
+  //Actualizar la tabla de productos
+  cargarTabla();
+
+  //...alert
+
+  //Cerrar modal
+  myModal.hide();
+};
+
+//Eliminar producto - CRU-DELETE
+const eliminarProducto = (id) => {
+  //filter
+  let nuevoArreglo = productos.filter((producto) => {
+    return producto.id != id;
+  });
+  //! log
+
+  //Confirmar
+  let validar = confirm(
+    "Esta seguro que desea eliminar el producto seleccionado?"
+  );
+
+  if (validar) {
+    //Reasignar los datos del nuevo arreglo - SPREAD OPERATOR (...)
+    productos = [...nuevoArreglo];
+    //Actualizar la base de datos
+    localStorage.setItem("productos", JSON.stringify(productos));
+    cargarTabla();
+  }
 };
 
 cargarTabla();
