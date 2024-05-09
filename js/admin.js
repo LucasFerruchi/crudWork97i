@@ -39,6 +39,42 @@ myModal.hide();
 //Leer BD
 let productos = JSON.parse(localStorage.getItem("productos")) || [];
 
+//! Validar el usuario
+const validarUsuario = () => {
+  //BD
+  let usuario = JSON.parse(localStorage.getItem("user")) || null;
+
+  if (usuario) {
+    cargarTabla();
+  } else {
+    //Limpiar HTML
+    main.innerHTML = "";
+
+    //Mensaje
+    let col = document.createElement("div");
+    col.classList = "col mt-5";
+
+    let contenido = `
+    <div class="alert alert-danger" role="alert">
+    No tiene permiso para acceder a esta página!
+  </div>
+    
+    `;
+
+    col.innerHTML = contenido;
+    main.append(col);
+  }
+};
+
+/*
+
+      <div class="col">
+          <div class="alert alert-danger" role="alert">
+            No tiene permiso para acceder a esta página!
+          </div>
+        </div>
+*/
+
 // Funcion Cargar Tabla - C-READ-UD
 const cargarTabla = () => {
   cuerpoTabla.innerHTML = "";
@@ -171,4 +207,5 @@ const eliminarProducto = (id) => {
   }
 };
 
-cargarTabla();
+// cargarTabla();
+validarUsuario();

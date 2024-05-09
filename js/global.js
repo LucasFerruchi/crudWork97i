@@ -18,10 +18,41 @@ class Producto {
     this.favorito = favorito;
   }
 }
-
+//! -----------------------------------------------------------
 //BOTON LOGIN
 let btnLogin = document.querySelector("#btn-login");
 
+//Datos del usuario
+let usuario = JSON.parse(localStorage.getItem("user")) || null;
+
+if (btnLogin) {
+  if (usuario) {
+    btnLogin.innerText = usuario;
+  } else {
+    btnLogin.innerText = "Inicio de sesión";
+  }
+
+  //ESCUCHADOR DE EVENTOS
+  btnLogin.addEventListener("click", sesion);
+  // document.querySelector("#btn-login").addEventListener("click", sesion);
+}
+
+//Funcion de inicio de sesion
+function sesion() {
+  // console.log("Inicio de sesion");
+  if (usuario) {
+    let confirmar = confirm("Estas seguro que deseas cerrar sesión?");
+    if (confirmar) {
+      localStorage.removeItem("user");
+      btnLogin.innerText = "Inicio de sesión";
+      location.replace("../index.html");
+    }
+  } else {
+    location.replace("../pages/login.html");
+  }
+}
+
+//! -----------------------------------------------------------
 //Funcion marcarFavorito
 const marcarFavorito = (id) => {
   //Obtenemos con el id la posicion
