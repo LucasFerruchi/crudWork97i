@@ -19,6 +19,9 @@ class Producto {
   }
 }
 
+//BOTON LOGIN
+let btnLogin = document.querySelector("#btn-login");
+
 //Funcion marcarFavorito
 const marcarFavorito = (id) => {
   //Obtenemos con el id la posicion
